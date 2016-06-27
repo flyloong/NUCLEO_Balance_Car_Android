@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/IDBtnLayout"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ID"
+            android:id="@+id/btnCarID"
+            android:onClick="onClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ID2"
+            android:id="@+id/btnCarIDFun"
+            android:onClick="onClick" />
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Temp"
+        android:id="@+id/btnCarTemp"
+        android:onClick="onClick" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Dance"
+            android:id="@+id/btnCarSongDance"
+            android:onClick="onClick" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/IDBtnLayout"
+        android:id="@+id/SongBtnLayout">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Song1"
+            android:id="@+id/btmSong1"
+            android:onClick="onClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Song2"
+            android:id="@+id/btnSong2"
+            android:onClick="onClick" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Song3"
+            android:id="@+id/btnSong3"
+            android:onClick="onClick" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Song4"
+            android:id="@+id/btnSong4"
+            android:onClick="onClick" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_above="@+id/PlayerLayout"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2">
+        <ImageButton
+            android:id="@+id/btnPlayRepeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/btn_playback_repeat"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_volume_on"/>
+        <SeekBar
+            android:id="@+id/seekBarVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:max="10"
+            android:progress="5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:id="@+id/PlayerLayout">
+        <ImageButton
+            android:id="@+id/btnPlayPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/btn_playback_previous"/>
+        <ImageButton
+            android:id="@+id/btnPlayPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/btn_playback_play"/>
+        <ImageButton
+            android:id="@+id/btnPlayNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/btn_playback_next"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

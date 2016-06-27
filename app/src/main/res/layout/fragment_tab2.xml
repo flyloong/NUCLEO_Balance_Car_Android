@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="P1:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="P2:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P3:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P4:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P4"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P5:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P5"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P6:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P6"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P7:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P7"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="P8:"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/P8"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:ems="4"
+            android:inputType="number"
+            android:layout_weight="1">
+
+        </EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/bReceiveOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Origin"
+
+            android:onClick="onClick"/>
+        <Button
+            android:id="@+id/bModify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Modify"
+            android:onClick="onClick"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RX:"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:singleLine="false"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/bClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLEAR"
+            android:onClick="onClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TX:"
+            android:textSize="18sp" />
+
+
+
+        <EditText
+            android:id="@+id/SendText"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:layout_weight="1">
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/bSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="SEND"
+            android:onClick="onClick"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

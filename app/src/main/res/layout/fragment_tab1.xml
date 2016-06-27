@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <com.lb.cannonrobot.RockerView
+            android:id="@+id/rockerView1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:padding="10dp"
+        android:text="自动模式：手动"
+        android:id="@+id/switch_Remote"
+        android:onClick="onClick"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="控制对象：小车"
+
+        android:onClick="onClick"
+        android:id="@+id/switch_Turnmode"
+        android:layout_below="@+id/switch_Remote"
+        android:layout_alignParentStart="true" />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="控制模式：摇杆"
+        android:textOff="摇杆"
+        android:textOn="姿态"
+        android:onClick="onClick"
+        android:id="@+id/switch_OriTurnmode"
+        android:layout_below="@+id/switch_Turnmode"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="自动"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_Remote" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:text="舵机"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_Turnmode"
+        android:layout_alignTop="@+id/switch_Turnmode" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="传感"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_OriTurnmode"
+        android:layout_alignTop="@+id/switch_OriTurnmode" />
+
+
+    <SeekBar
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/seekBarHead"
+        android:max="200"
+        android:progress="100"
+        android:padding="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_Remote" />
+
+    <SeekBar
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/seekBarlefttHand"
+        android:max="200"
+        android:progress="100"
+        android:padding="5dp"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_Turnmode"
+        android:layout_alignTop="@+id/switch_Turnmode" />
+
+    <SeekBar
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/seekBarRighttHand"
+        android:max="200"
+        android:progress="100"
+        android:padding="5dp"
+        android:layout_toEndOf="@+id/switch_Remote"
+        android:layout_alignBottom="@+id/switch_OriTurnmode"
+        android:layout_alignTop="@+id/switch_OriTurnmode" />
+
+
+
+</RelativeLayout>
