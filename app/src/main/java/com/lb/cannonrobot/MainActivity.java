@@ -1,18 +1,22 @@
 package com.lb.cannonrobot;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +35,7 @@ import com.juma.sdk.ScanHelper;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity  implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 
     public static final String ACTION_MUSIC_MODE         =    "com.lb.cannonrobot.ACTION_MUSIC_MODE";
     public static final String ACTION_MUSIC_VOLUME         =    "com.lb.cannonrobot.ACTION_MUSIC_VOLUME";
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
 
     private HashMap<UUID, JumaDevice> deviceList =  new HashMap<UUID, JumaDevice>();
     public static final String ACTION_DEVICE_DISCOVERED = "com.example.temperaturegatheringdemo.ACTION_DEVICE_DISCOVERED";
-    public Toolbar toolbar;
+
     public static TextView topdisplay;
     private TextView topdisplay2;
     private TextView topdisplay3;
@@ -80,17 +84,113 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
    static byte[] sendbytesremote= new byte[13];
     static byte Car_cmd2;
     static boolean Car_cmd2_New_Flag=false;
+    private ActionBar actionBar;
+    private BluetoothAdapter mBluetoothAdapter;
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1)
+        {   if(resultCode == RESULT_OK){
+            scanDevice();
+            //  scanDevice_my();
+
+
+            deviceList.clear();
+            scanner.startScan(null);
+            final CustomDialog scanDialog = new CustomDialog(MainActivity.this,R.style.NobackDialog);
+
+            scanDialog.setScanCallback(new CustomDialog.Callback() {
+                @Override
+                public void onDevice(final UUID uuid, final String name) {
+                    scanner.stopScan();
+                    myDevice = deviceList.get(uuid);
+                    //    bConnect.setText("TO DISCONNECT");
+                    myDevice.connect(callback);
+                }
+
+                @Override
+                public void onDismiss() {
+                    scanner.stopScan();
+                }
+            });
+            scanDialog.setNegativeButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    scanDialog.dismiss();
+                }
+            });
+            scanDialog.show();
+
+            }
+            else {
+            Toast.makeText(this, "不打开蓝牙没法玩", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         actionBar=this.getActionBar();
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Toast.makeText(this, "BLE not supported", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        // 初始化 Bluetooth adapter, 通过蓝牙管理器得到一个参考蓝牙适配器(API必须在以上android4.3或以上和版本)
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+
+        // 检查设备上是否支持蓝牙
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "BLE not supported", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, 1);
+        }else{
+            scanDevice();
+            //  scanDevice_my();
+
+
+            deviceList.clear();
+            scanner.startScan(null);
+            final CustomDialog scanDialog = new CustomDialog(MainActivity.this,R.style.NobackDialog);
+
+            scanDialog.setScanCallback(new CustomDialog.Callback() {
+                @Override
+                public void onDevice(final UUID uuid, final String name) {
+                    scanner.stopScan();
+                    myDevice = deviceList.get(uuid);
+                    //    bConnect.setText("TO DISCONNECT");
+                    myDevice.connect(callback);
+                }
+
+                @Override
+                public void onDismiss() {
+                    scanner.stopScan();
+                }
+            });
+            scanDialog.setNegativeButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    scanDialog.dismiss();
+                }
+            });
+            scanDialog.show();
+
+        }
 
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明化导航栏
         }
+        */
       //  View decorView=getWindow().getDecorView();//隐藏导航栏
       //  int uiOptions=View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
       //  decorView.setSystemUiVisibility(uiOptions);
@@ -107,51 +207,22 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         registerReceiver(sendReceiver, sendFilter);
 
 
-        topdisplay=(TextView)findViewById(R.id.top_display);
-        topdisplay2=(TextView)findViewById(R.id.top_display2);
-        topdisplay3=(TextView)findViewById(R.id.top_display3);
+     //   topdisplay=(TextView)findViewById(R.id.top_display);
+       // topdisplay2=(TextView)findViewById(R.id.top_display2);
+      //  topdisplay3=(TextView)findViewById(R.id.top_display3);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setLogo(R.drawable.ic_signal_0_bar_24dp);
+      //  toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // toolbar.setLogo(R.drawable.ic_signal_0_bar_24dp);
     //    toolbar.setTitle("My Title");
      //   toolbar.setSubtitle("Sub title");
 
-        setSupportActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(onMenuItemClick);
+     //   setSupportActionBar(toolbar);
+    //    toolbar.setOnMenuItemClickListener(onMenuItemClick);
        // FragmentTab3.mseekBarVolume=(SeekBar)findViewById(R.id.seekBarVolume);
 
         initViews();
         fragmentManager = getFragmentManager();
         setTabSelection(0);
-        scanDevice();
-      //  scanDevice_my();
-
-
-        deviceList.clear();
-        scanner.startScan(null);
-        final CustomDialog scanDialog = new CustomDialog(MainActivity.this,R.style.NobackDialog);
-
-        scanDialog.setScanCallback(new CustomDialog.Callback() {
-            @Override
-            public void onDevice(final UUID uuid, final String name) {
-                scanner.stopScan();
-                myDevice = deviceList.get(uuid);
-                //    bConnect.setText("TO DISCONNECT");
-                myDevice.connect(callback);
-            }
-
-            @Override
-            public void onDismiss() {
-                scanner.stopScan();
-            }
-        });
-        scanDialog.setNegativeButton(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                scanDialog.dismiss();
-            }
-        });
-        scanDialog.show();
 
     }
 
@@ -272,7 +343,63 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_scan:
+                deviceList.clear();
+                scanner.startScan(null);
+                final CustomDialog scanDialog = new CustomDialog(MainActivity.this,R.style.NobackDialog);
 
+                scanDialog.setScanCallback(new CustomDialog.Callback() {
+                    @Override
+                    public void onDevice(final UUID uuid, final String name) {
+                        scanner.stopScan();
+                        myDevice = deviceList.get(uuid);
+                        //    bConnect.setText("TO DISCONNECT");
+                        myDevice.connect(callback);
+                    }
+
+                    @Override
+                    public void onDismiss() {
+                        scanner.stopScan();
+                    }
+                });
+                scanDialog.setNegativeButton(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        scanDialog.dismiss();
+                    }
+                });
+                scanDialog.show();
+                break;
+            case R.id.action_connect:
+                if (myDevice != null && myDevice.isConnected()) {
+                    myDevice.disconnect();
+                } else if(myDevice != null) {
+                    myDevice.connect(callback);
+                }
+                break;
+            case R.id.action_id:
+                Car_cmd2='i';
+                break;
+            case R.id.action_laugh:
+                Car_cmd2='L';
+                break;
+            case R.id.action_temperature:
+                Car_cmd2='T';
+                break;
+            case R.id.action_humidity:
+                Car_cmd2='H';
+                break;
+            case R.id.action_Pressure:
+                Car_cmd2='P';
+                break;
+        }
+        return true;
+    }
+
+    /*
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
@@ -331,7 +458,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
             return true;
         }
     };
-
+*/
     private JumaDeviceCallback callback = new JumaDeviceCallback() {
         @Override
         public void onConnectionStateChange(int status, int newState) {
@@ -354,8 +481,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
                         }
                     //    bConnect.setText("TO DISCONNECT");
                       //  getSupportActionBar().setTitle(myDevice.getName() + " is connect");
-                        toolbar.setLogo(R.drawable.ic_signal_5_bar_24dp);
-                        topdisplay.setText("连接成功");
+                        //toolbar.setLogo(R.drawable.ic_signal_5_bar_24dp);
+                      //  topdisplay.setText("连接成功");
+                        actionBar.setTitle("连接成功");
                         handler.postDelayed(runnable, 110);//开启周期性的定时
                     Remote_Flag=true;
                        // FragmentTab1.remoteSwitch.setChecked(true);
@@ -369,8 +497,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
                     public void run() {
                    //     bConnect.setText("TO CONNECT");
                       //  getSupportActionBar().setTitle(myDevice.getName() + " is disconnect");
-                        toolbar.setLogo(R.drawable.ic_signal_0_bar_24dp);
-                        topdisplay.setText("断开连接");
+                   //     toolbar.setLogo(R.drawable.ic_signal_0_bar_24dp);
+                     //   topdisplay.setText("断开连接");
+                        actionBar.setTitle("断开连接");
                         handler.removeCallbacks(runnable);//关闭定时
                         Remote_Flag=false;
                       //  FragmentTab1.remoteSwitch.setChecked(false);
@@ -463,11 +592,11 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
                         public void run() {
                             topdisplay2.setText(" 电压：" +(double)ints[0]/100+"V");
                             if(Voltage<11){
-                                topdisplay.setText("电压过低");
+                           //     topdisplay.setText("电压过低");
 
                             }
                             else{
-                                topdisplay.setText(" ");
+                             //   topdisplay.setText(" ");
                             }
                         }
                     });
@@ -482,18 +611,24 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
                     @Override
                     public void run() {
                         if (RSSI != 127) {//不明白为何RSSI会总是出现127这个数字
-                         //   System.out.println(RSSI);
-                        topdisplay3.setText(" RSSI：" + String.valueOf(RSSI));
+                            System.out.println(RSSI);
+                           actionBar.setTitle(" RSSI：" +String.valueOf(RSSI));
+                  //      topdisplay3.setText(" RSSI：" + String.valueOf(RSSI));
                         if (RSSI < -100) {
-                            toolbar.setLogo(R.drawable.ic_signal_1_bar_24dp);
+                            actionBar.setIcon(R.drawable.ic_signal_1_bar_24dp);
+                  //          toolbar.setLogo(R.drawable.ic_signal_1_bar_24dp);
                         } else if (RSSI < -90) {
-                            toolbar.setLogo(R.drawable.ic_signal_2_bar_24dp);
+                            actionBar.setIcon(R.drawable.ic_signal_2_bar_24dp);
+                  //          toolbar.setLogo(R.drawable.ic_signal_2_bar_24dp);
                         } else if (RSSI < -80) {
-                            toolbar.setLogo(R.drawable.ic_signal_3_bar_24dp);
+                            actionBar.setIcon(R.drawable.ic_signal_3_bar_24dp);
+                   //         toolbar.setLogo(R.drawable.ic_signal_3_bar_24dp);
                         } else if (RSSI < -70) {
-                            toolbar.setLogo(R.drawable.ic_signal_4_bar_24dp);
+                            actionBar.setIcon(R.drawable.ic_signal_4_bar_24dp);
+                  //          toolbar.setLogo(R.drawable.ic_signal_4_bar_24dp);
                         } else {
-                            toolbar.setLogo(R.drawable.ic_signal_5_bar_24dp);
+                            actionBar.setIcon(R.drawable.ic_signal_5_bar_24dp);
+                   //         toolbar.setLogo(R.drawable.ic_signal_5_bar_24dp);
                         }
                     }
                 }

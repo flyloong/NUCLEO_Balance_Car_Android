@@ -17,6 +17,8 @@
 
         android:padding="10dp"
         android:text="自动模式：手动"
+        android:textOff="手动"
+        android:textOn="自动"
         android:id="@+id/switch_Remote"
         android:onClick="onClick"
         android:layout_alignParentTop="true"
@@ -29,7 +31,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="控制对象：小车"
-
+        android:textOff="小车"
+        android:textOn="舵机"
         android:onClick="onClick"
         android:id="@+id/switch_Turnmode"
         android:layout_below="@+id/switch_Remote"
@@ -72,7 +75,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="传感"
+        android:text="姿态"
         android:textColor="#FFFFFF"
         android:padding="10dp"
         android:layout_toEndOf="@+id/switch_Remote"

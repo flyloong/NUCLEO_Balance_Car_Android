@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 21
     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.lb.cannonrobot"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -22,6 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile files('libs/juma-sdk.jar')
 }

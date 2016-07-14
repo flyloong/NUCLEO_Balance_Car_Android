@@ -4,56 +4,6 @@
 
     android:orientation="vertical" >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:fitsSystemWindows="true"
-        android:clipToPadding="true"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:padding="0dp"
-        android:background="?attr/colorPrimary">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="56dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/top_display"
-                    android:layout_width="100dp"
-                    android:layout_height="19dp"
-                    android:text="设备未连接"
-                    android:gravity="center"
-                    android:background="@android:color/darker_gray"/>
-                <TextView
-                    android:id="@+id/top_display2"
-                    android:layout_width="100dp"
-                    android:layout_height="18dp"
-                    android:text=" 电压：---"
-
-                    android:background="@android:color/darker_gray"/>
-                <TextView
-                    android:id="@+id/top_display3"
-                    android:layout_width="100dp"
-                    android:layout_height="19dp"
-                    android:text=" RSSI：---"
-
-                    android:background="@android:color/darker_gray"/>
-
-
-
-                    android:background="@android:color/darker_gray"/>
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/content"
