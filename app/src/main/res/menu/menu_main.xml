@@ -33,5 +33,9 @@
         android:title="Disconnect"
         android:orderInCategory="100"
         app:showAsAction="never"/>
+    <item
+        android:title="V1.0"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
 
 </menu>
