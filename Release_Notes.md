@@ -1,0 +1,25 @@
+# Releases Notes for BLE remote control Android Firmware Package
+BLE remote control for Android is a APP to control "702 Balance car",
+it adopt JUMA SDK.
+
+##software features:
+* Check running environment 
+* Scan BLE devices
+* Connect or disconnect "702 Balance car"
+* Control "702 Balance car" to move with Virtual Joystick or SeekBar
+* Control "702 Balance car" to broadcast
+* Control "702 Balance car" to rotate head
+* Display RSSI 
+
+##Update History
+###V1.1 /26-July-2016
+**Main Changes**
+* Fix the bug that some mobile phone can not find device
+
+###V1.0 /22-July-2016
+**Main Changes:**
+* First release
+
+
+
+
